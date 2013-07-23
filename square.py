@@ -26,24 +26,20 @@ class Line:
 
 
 def isprime(n):
-    '''check if integer n is a prime'''
-    # make sure n is a positive integer
-    n = abs(int(n))
-    # 0 and 1 are not primes
-    if n < 2:
-        return False
-    # 2 is the only even prime number
     if n == 2:
-        return True
-    # all other even numbers are not primes
-    if not n & 1:
-        return False
-    # range starts with 3 and only needs to go up the squareroot of n
-    # for all odd numbers
-    for x in range(3, int(n**0.5)+1, 2):
-        if n % x == 0:
-            return False
-    return True
+        return 1
+    if n % 2 == 0:
+        return 0
+
+    max = n**0.5+1
+    i = 3
+
+    while i <= max:
+        if n % i == 0:
+            return 0
+        i += 2
+
+    return 1
 
 
 def squarePrime(x,onlyPrimes):
@@ -61,10 +57,11 @@ def squarePrime(x,onlyPrimes):
             for s in range(y):
                 number = int(pow(y, 2)-s)
                 line.addNumber(number)
+
             for s in reversed(range(int(specialCount))):
                 number = int(pow(x - 2*s, 2) - (x - 2*s) - (specialCount-1 - s))
-                # print(x,l,s,number, specialCount)
                 line.addNumber(number)
+
             y -= 2
 
         if l >= (x/2):
@@ -78,10 +75,9 @@ def squarePrime(x,onlyPrimes):
                 number = last
                 last += 1
                 line.addNumber(number)
+
             for s in reversed(range(int(specialCount))):
                 number = int(pow(x - 2*s, 2) - (2 * l) - (s - 1 + specialCount) + (s * 4))
-                # print(x,l,s,specialCount,pow(x-2*s,2), number)
-
                 line.addNumber(number)
             y += 2
 
@@ -89,4 +85,4 @@ def squarePrime(x,onlyPrimes):
         line.printLine(onlyPrimes)
 
 
-squarePrime(16,False)
+squarePrime(16,True)
