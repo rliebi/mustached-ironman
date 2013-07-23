@@ -4,16 +4,25 @@ from math import *
 
 class Line:
     line = ""
+    numberLine=""
+    digit = 0
 
     def addNumber(self, number):
+        if self.digit == 0:
+            self.digit = int(log10(number))+1
         if isprime(number):
             self.line += "O"
         else:
             self.line += " "
 
-    def printLine(self):
-        print(self.line)
-        self.line = ""
+        self.numberLine += (" " + str(number).zfill(self.digit))
+    def printLine(self,onlyPrimes):
+        if onlyPrimes:
+            print(self.line)
+            self.line = ""
+        else:
+            print(self.numberLine)
+            self.numberLine = ""
 
 
 def isprime(n):
@@ -37,7 +46,9 @@ def isprime(n):
     return True
 
 
-def radiant(x):
+def squarePrime(x,onlyPrimes):
+    if x & 1:
+        return False
     y = x
     line = Line()
     for l in range(x):
@@ -75,7 +86,7 @@ def radiant(x):
             y += 2
 
         # next = number
-        line.printLine()
+        line.printLine(onlyPrimes)
 
 
-radiant(150)
+squarePrime(16,False)
